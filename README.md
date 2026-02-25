@@ -18,7 +18,7 @@ I focus on building practical AI-driven applications and continuously improving 
     srcset="https://raw.githubusercontent.com/Sahilllz/Sahilllz/output/github-contribution-grid-snake-dark.svg">
   <source media="(prefers-color-scheme: light)" 
     srcset="https://raw.githubusercontent.com/Sahilllz/Sahilllz/output/github-contribution-grid-snake.svg">
-  <img alt="snake animation" 
+  <img alt="github contribution snake animation" 
     src="https://raw.githubusercontent.com/Sahilllz/Sahilllz/output/github-contribution-grid-snake.svg">
 </picture>
 
