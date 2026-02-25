@@ -3,6 +3,9 @@
 </p>
 
 
+# AI Systems Engineer | ML | Scalable Models | UI/UX Designer
+
+
 ## 🚀 About Me
 I’m a Computer Science student passionate about Artificial Intelligence and Machine Learning.
 I focus on building practical AI-driven applications and continuously improving my engineering fundamentals.
