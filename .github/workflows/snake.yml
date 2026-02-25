@@ -1,34 +1,26 @@
-name: Generate Snake Animation
+name: GitHub Metrics
 
 on:
-  workflow_dispatch:
   schedule:
     - cron: "0 */12 * * *"
+  workflow_dispatch:
 
 jobs:
-  generate:
+  github-metrics:
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: lowlighter/metrics@latest
         with:
-          persist-credentials: true
-
-      - name: Generate snake
-        uses: Platane/snk@v3
-        with:
-          github_user_name: Sahilllz
-          outputs: |
-            github-snake.svg
-            github-snake-dark.svg?palette=github-dark
-
-      - name: Commit and Push
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add *.svg
-          git commit -m "Generate snake animation" || echo "No changes to commit"
-          git push origin main
+          token: ${{ secrets.GITHUB_TOKEN }}
+          user: Sahilllz
+          template: classic
+          base: header, activity, community
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+          plugin_languages: yes
+          plugin_languages_sections: most-used
+          plugin_lines: yes
+          plugin_traffic: yes
