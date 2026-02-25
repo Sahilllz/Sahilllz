@@ -12,6 +12,13 @@ I focus on building practical AI-driven applications and continuously improving 
 - UI/UX Design
 - Basic Cloud Concepts (VPC, Networking)
 
+##
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Sahilllz/Sahilllz/output/github-contribution-grid-snake-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Sahilllz/Sahilllz/output/github-contribution-grid-snake.svg">
+  <img alt="snake animation" src="https://raw.githubusercontent.com/Sahilllz/Sahilllz/output/github-contribution-grid-snake.svg">
+</picture>
+
 ## 🌐 Connect With Me
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sahil-singone-588823312)
 [![Instagram](https://img.shields.io/badge/-Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)]( https://www.instagram.com/0x.sahiilxxi)
