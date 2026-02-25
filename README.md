@@ -1,4 +1,7 @@
-# Hi, I'm Sahil 👋
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?size=28&duration=4000&color=00F7FF&center=true&vCenter=true&width=800&lines=Hey,+I'm+Sahil+Singone;AI+Engineer+in+Progress;Building+Intelligent+Systems;Machine+Learning+%7C+Python+%7C+C;Focused+on+Scalable+AI+Solutions" />
+</p>
+
 
 ## 🚀 About Me
 I’m a Computer Science student passionate about Artificial Intelligence and Machine Learning.
@@ -11,9 +14,22 @@ I focus on building practical AI-driven applications and continuously improving 
 - SEO
 - UI/UX Design
 - Basic Cloud Concepts (VPC, Networking)
+##
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=python,c,git,github,figma,html,css&theme=dark" />
+</p>
+
 
 ##
-![Metrics](https://raw.githubusercontent.com/Sahilllz/Sahilllz/main/github-metrics.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" 
+    srcset="https://raw.githubusercontent.com/Sahilllz/Sahilllz/main/github-snake-dark.svg">
+  <source media="(prefers-color-scheme: light)" 
+    srcset="https://raw.githubusercontent.com/Sahilllz/Sahilllz/main/github-snake.svg">
+  <img alt="snake animation" 
+    src="https://raw.githubusercontent.com/Sahilllz/Sahilllz/main/github-snake.svg">
+</picture>
+
 
 ## 🌐 Connect With Me
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sahil-singone-588823312)
