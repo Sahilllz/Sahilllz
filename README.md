@@ -13,14 +13,7 @@ I focus on building practical AI-driven applications and continuously improving 
 - Basic Cloud Concepts (VPC, Networking)
 
 ##
-<picture>
-  <source media="(prefers-color-scheme: dark)" 
-    srcset="https://raw.githubusercontent.com/Sahilllz/Sahilllz/main/github-snake-dark.svg">
-  <source media="(prefers-color-scheme: light)" 
-    srcset="https://raw.githubusercontent.com/Sahilllz/Sahilllz/main/github-snake.svg">
-  <img alt="snake animation" 
-    src="https://raw.githubusercontent.com/Sahilllz/Sahilllz/main/github-snake.svg">
-</picture>
+![Metrics](https://raw.githubusercontent.com/Sahilllz/Sahilllz/main/github-metrics.svg)
 
 ## 🌐 Connect With Me
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sahil-singone-588823312)
