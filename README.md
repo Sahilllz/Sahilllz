@@ -1,195 +1,223 @@
 <div align="center">
 
-# 👋 Hi there, I'm Sahil Singone
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12&height=200&section=header&text=Sahil%20Singone&fontSize=52&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Computer%20Science%20Student%20%7C%20AI%20%26%20Software%20Builder&descAlignY=58&descSize=17" width="100%"/>
 
-### 💻 Computer Science Student | AI Engineering | Software Development
+<br>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=00F7FF&center=true&vCenter=true&width=650&lines=Exploring+AI+%26+Machine+Learning;Building+Real+World+Projects;Learning+System+Design;Developing+Modern+Web+Applications;Turning+Ideas+Into+Products" />
+<a href="https://github.com/Sahilllz">
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=21&duration=2800&pause=900&color=00F7FF&center=true&vCenter=true&width=650&lines=Exploring+AI+%26+Machine+Learning;Building+Real+World+Software;Learning+System+Design;Creating+%26+Shipping+Projects;Always+Learning%2C+Always+Building" />
+</a>
+
+<br>
+
+<a href="https://github.com/Sahilllz">
+<img src="https://komarev.com/ghpvc/?username=Sahilllz&label=PROFILE+VIEWS&color=00F7FF&style=for-the-badge" />
+</a>
 
 </div>
 
 ---
 
-## 💻 About Me
+## 👨‍💻 About Me
 
-- 🎓 &nbsp; Computer Science student passionate about technology and software development.
-- 🤖 &nbsp; Exploring **AI, Machine Learning & AI Automation**.
-- ⚙️ &nbsp; Learning **System Design and Software Engineering**.
-- 🌐 &nbsp; Building modern **web and software applications**.
-- 🎨 &nbsp; Interested in **UI/UX and product design**.
-- 🚀 &nbsp; Currently building **SpendSense** and experimenting with new ideas.
-- 📚 &nbsp; Learning by building real projects and continuously improving my skills.
+Hey, I'm **Sahil Singone** — a Computer Science student interested in building practical software and exploring the intersection of **AI, automation, and product development**.
 
----
-
-## 🛠️ Stack I Work With
-
-<br>
-
-<p align="center">
-
-<img src="https://skillicons.dev/icons?i=python,java,kotlin,javascript,html,css,cpp,c" />
-
-</p>
-
-<p align="center">
-
-<img src="https://skillicons.dev/icons?i=react,nodejs,firebase,git,github,vscode,androidstudio,figma" />
-
-</p>
-
-### 🤖 AI / ML & Currently Exploring
-
-<p align="center">
-
-<img src="https://skillicons.dev/icons?i=python,tensorflow,pytorch" />
-
-</p>
+* 🎓 Computer Science Student
+* 🤖 Exploring **AI, Machine Learning & AI Automation**
+* ⚙️ Learning **System Design & Software Engineering**
+* 🌐 Building **modern web and software applications**
+* 📱 Exploring **Android Development**
+* 🎨 Interested in **UI/UX & Product Design**
+* 🚀 Currently building **SpendSense**
+* 📚 Learning by building real projects
 
 ---
 
-<br>
+## 🛠️ Tech Stack
+
+### 💻 Languages
+
+<p align="center">
+<img src="https://skillicons.dev/icons?i=python,java,kotlin,javascript,cpp,c,html,css" />
+</p>
+
+### 🌐 Web & Application Development
+
+<p align="center">
+<img src="https://skillicons.dev/icons?i=react,nodejs,androidstudio,firebase" />
+</p>
+
+### ⚙️ Tools
+
+<p align="center">
+<img src="https://skillicons.dev/icons?i=git,github,vscode,figma" />
+</p>
+
+### 🤖 AI / ML
 
 <p align="center">
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+<img src="https://img.shields.io/badge/AI%20Engineering-111827?style=for-the-badge&logo=openai&logoColor=white" />
+
+<img src="https://img.shields.io/badge/Machine%20Learning-111827?style=for-the-badge&logo=tensorflow&logoColor=FF6F00" />
+
+<img src="https://img.shields.io/badge/AI%20Automation-111827?style=for-the-badge&logo=robotframework&logoColor=white" />
 
 </p>
 
 ---
 
-## 🚀 Featured Project
-
-<div align="center">
+## 🚀 What I'm Building
 
 ### 💰 SpendSense
 
 **Personal Finance Management Application**
 
-A project focused on helping users track, understand and manage their
-personal spending through a simple and practical experience.
+SpendSense is a project focused on helping users track, understand and manage their personal spending through a practical and simple experience.
+
+**Focus:**
 
 `Android` • `Kotlin` • `Firebase` • `UI/UX`
 
-🚧 **Currently in Development**
-
-</div>
+**Status:** 🚧 In Development
 
 ---
 
-## 📊 GitHub Statistics
+## 🎯 Current Focus
+
+<table align="center">
+<tr>
+<td align="center" width="25%">
+
+### 🤖
+
+**AI / ML**
+
+Exploring AI engineering and machine learning
+
+</td>
+
+<td align="center" width="25%">
+
+### ⚙️
+
+**Engineering**
+
+Learning system design and software architecture
+
+</td>
+
+<td align="center" width="25%">
+
+### 📱
+
+**Development**
+
+Building practical applications
+
+</td>
+
+<td align="center" width="25%">
+
+### 🚀
+
+**Projects**
+
+Turning ideas into working products
+
+</td>
+</tr>
+</table>
+
+---
+
+## 📊 GitHub
+
+<div align="center">
+
+<a href="https://github.com/Sahilllz">
+<img src="https://img.shields.io/github/followers/Sahilllz?style=for-the-badge&logo=github&label=Followers" />
+</a>
+
+<a href="https://github.com/Sahilllz?tab=repositories">
+<img src="https://img.shields.io/github/stars/Sahilllz?style=for-the-badge&logo=github&label=Stars" />
+</a>
+
+<a href="https://github.com/Sahilllz?tab=repositories">
+<img src="https://img.shields.io/badge/Public%20Repositories-Explore-00F7FF?style=for-the-badge&logo=github" />
+</a>
+
+</div>
 
 <br>
 
 <div align="center">
 
-<img width="49%" src="https://github-readme-stats.vercel.app/api?username=Sahilllz&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true" />
+<img src="https://github-readme-stats.vercel.app/api?username=Sahilllz&show_icons=true&hide_border=true&theme=tokyonight&include_all_commits=true" width="48%" />
 
-<img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Sahilllz&layout=compact&theme=tokyonight&hide_border=true&langs_count=8" />
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Sahilllz&layout=compact&hide_border=true&theme=tokyonight&langs_count=8" width="48%" />
 
 </div>
 
-<br>
+---
+
+## 🌱 Learning Roadmap
+
+```text
+AI Engineering
+████████████░░░░░░░░
+
+Machine Learning
+██████████░░░░░░░░░░
+
+System Design
+████████░░░░░░░░░░░░
+
+Android Development
+██████████░░░░░░░░░░
+
+Open Source
+████░░░░░░░░░░░░░░░░
+
+Building Real Products
+██████████░░░░░░░░░░
+```
 
 ---
 
-## 🔥 GitHub Streak
+## 💡 My Philosophy
 
 <div align="center">
 
-<img src="https://streak-stats.demolab.com?user=Sahilllz&theme=tokyonight&hide_border=true" />
+> **Don't just learn technology. Build something with it.**
+
+<br>
+
+`Learn` → `Build` → `Break` → `Fix` → `Improve` → `Ship`
 
 </div>
 
 ---
-
-<br>
-
-<p align="center">
-
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-
-</p>
-
----
-
-## 🏆 GitHub Profile Trophies
-
-<div align="center">
-
-<img src="https://github-profile-trophy.vercel.app/?username=Sahilllz&theme=tokyonight&no-frame=true&no-bg=true&margin-w=10&column=7" width="100%" />
-
-</div>
-
----
-
-## 📈 GitHub Activity
-
-<br>
-
-<div align="center">
-
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=Sahilllz&bg_color=0D1117&color=00F7FF&line=7B2FF7&point=FFFFFF&area=true&hide_border=true" width="95%" />
-
-</div>
-
----
-
-<br>
-
-<hr>
-
-<br>
 
 ## 🌐 Connect With Me
 
 <div align="center">
 
-<a href="https://www.linkedin.com/in/sahil-singone/" target="_blank">
-<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+<a href="https://www.linkedin.com/in/sahil-singone/">
+<img src="https://img.shields.io/badge/LinkedIn-Sahil%20Singone-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
 </a>
 
-&nbsp;&nbsp;
-
-<a href="https://portfolio-wheat-omega-31.vercel.app/" target="_blank">
-<img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+<a href="https://portfolio-wheat-omega-31.vercel.app/">
+<img src="https://img.shields.io/badge/Portfolio-Visit%20Website-000000?style=for-the-badge&logo=vercel&logoColor=white" />
 </a>
 
-&nbsp;&nbsp;
-
-<a href="https://github.com/Sahilllz" target="_blank">
-<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
+<a href="https://github.com/Sahilllz">
+<img src="https://img.shields.io/badge/GitHub-Sahilllz-181717?style=for-the-badge&logo=github&logoColor=white" />
 </a>
 
 </div>
 
 ---
-
-<br>
-
-## 👀 Profile Visitors
-
-<div align="center">
-
-<img src="https://komarev.com/ghpvc/?username=Sahilllz&label=PROFILE+VIEWS&color=00F7FF&style=for-the-badge" />
-
-</div>
-
----
-
-<br>
-
-## 🐍 Contribution Snake
-
-<div align="center">
-
-<img src="https://raw.githubusercontent.com/Sahilllz/Sahilllz/output/github-contribution-grid-snake.svg" alt="GitHub Contribution Snake" width="100%" />
-
-</div>
-
----
-
-<br>
 
 <div align="center">
 
@@ -197,6 +225,6 @@ personal spending through a simple and practical experience.
 
 <br>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:7B2FF7,100:00F7FF&height=100&section=footer" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12&height=120&section=footer" width="100%"/>
 
 </div>
