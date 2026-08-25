@@ -131,36 +131,6 @@ Turning ideas into working products
 
 ---
 
-## 📊 GitHub
-
-<div align="center">
-
-<a href="https://github.com/Sahilllz">
-<img src="https://img.shields.io/github/followers/Sahilllz?style=for-the-badge&logo=github&label=Followers" />
-</a>
-
-<a href="https://github.com/Sahilllz?tab=repositories">
-<img src="https://img.shields.io/github/stars/Sahilllz?style=for-the-badge&logo=github&label=Stars" />
-</a>
-
-<a href="https://github.com/Sahilllz?tab=repositories">
-<img src="https://img.shields.io/badge/Public%20Repositories-Explore-00F7FF?style=for-the-badge&logo=github" />
-</a>
-
-</div>
-
-<br>
-
-<div align="center">
-
-<img src="https://github-readme-stats.vercel.app/api?username=Sahilllz&show_icons=true&hide_border=true&theme=tokyonight&include_all_commits=true" width="48%" />
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Sahilllz&layout=compact&hide_border=true&theme=tokyonight&langs_count=8" width="48%" />
-
-</div>
-
----
-
 ## 🌱 Learning Roadmap
 
 ```text
@@ -203,23 +173,28 @@ Building Real Products
 
 <div align="center">
 
+<a href="mailto:YOUR_EMAIL@gmail.com">
+<img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
+</a>
+
 <a href="https://www.linkedin.com/in/sahil-singone/">
-<img src="https://img.shields.io/badge/LinkedIn-Sahil%20Singone-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+</a>
+
+<a href="https://www.instagram.com/YOUR_INSTAGRAM_USERNAME/">
+<img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" />
+</a>
+
+<a href="https://discord.com/users/YOUR_DISCORD_USER_ID">
+<img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
 </a>
 
 <a href="https://portfolio-wheat-omega-31.vercel.app/">
-<img src="https://img.shields.io/badge/Portfolio-Visit%20Website-000000?style=for-the-badge&logo=vercel&logoColor=white" />
-</a>
-
-<a href="https://github.com/Sahilllz">
-<img src="https://img.shields.io/badge/GitHub-Sahilllz-181717?style=for-the-badge&logo=github&logoColor=white" />
+<img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white" />
 </a>
 
 </div>
 
----
-
-<div align="center">
 
 ### ⚡ Learn • Build • Ship • Improve
 
