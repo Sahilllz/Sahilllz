@@ -4,11 +4,9 @@
 
 <br>
 
-<a href="https://github.com/Sahilllz">
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=21&duration=2800&pause=900&color=00F7FF&center=true&vCenter=true&width=650&lines=Exploring+AI+%26+Machine+Learning;Building+Real+World+Software;Learning+System+Design;Creating+%26+Shipping+Projects;Always+Learning%2C+Always+Building" />
-</a>
 
-<br>
+<br><br>
 
 <a href="https://github.com/Sahilllz">
 <img src="https://komarev.com/ghpvc/?username=Sahilllz&label=PROFILE+VIEWS&color=00F7FF&style=for-the-badge" />
@@ -22,14 +20,14 @@
 
 Hey, I'm **Sahil Singone** — a Computer Science student interested in building practical software and exploring the intersection of **AI, automation, and product development**.
 
-* 🎓 Computer Science Student
-* 🤖 Exploring **AI, Machine Learning & AI Automation**
-* ⚙️ Learning **System Design & Software Engineering**
-* 🌐 Building **modern web and software applications**
-* 📱 Exploring **Android Development**
-* 🎨 Interested in **UI/UX & Product Design**
-* 🚀 Currently building **SpendSense**
-* 📚 Learning by building real projects
+- 🎓 Computer Science Student
+- 🤖 Exploring **AI, Machine Learning & AI Automation**
+- ⚙️ Learning **System Design & Software Engineering**
+- 🌐 Building **modern web and software applications**
+- 📱 Exploring **Android Development**
+- 🎨 Interested in **UI/UX & Product Design**
+- 🚀 Currently building **SpendSense**
+- 📚 Learning by building real projects
 
 ---
 
@@ -75,7 +73,7 @@ Hey, I'm **Sahil Singone** — a Computer Science student interested in building
 
 SpendSense is a project focused on helping users track, understand and manage their personal spending through a practical and simple experience.
 
-**Focus:**
+**Focus**
 
 `Android` • `Kotlin` • `Firebase` • `UI/UX`
 
@@ -87,6 +85,7 @@ SpendSense is a project focused on helping users track, understand and manage th
 
 <table align="center">
 <tr>
+
 <td align="center" width="25%">
 
 ### 🤖
@@ -126,6 +125,7 @@ Building practical applications
 Turning ideas into working products
 
 </td>
+
 </tr>
 </table>
 
@@ -151,55 +151,3 @@ Open Source
 
 Building Real Products
 ██████████░░░░░░░░░░
-```
-
----
-
-## 💡 My Philosophy
-
-<div align="center">
-
-> **Don't just learn technology. Build something with it.**
-
-<br>
-
-`Learn` → `Build` → `Break` → `Fix` → `Improve` → `Ship`
-
-</div>
-
----
-
-## 🌐 Connect With Me
-
-<div align="center">
-
-<a href="mailto:YOUR_EMAIL@gmail.com">
-<img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
-</a>
-
-<a href="https://www.linkedin.com/in/sahil-singone/">
-<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
-</a>
-
-<a href="https://www.instagram.com/YOUR_INSTAGRAM_USERNAME/">
-<img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" />
-</a>
-
-<a href="https://discord.com/users/YOUR_DISCORD_USER_ID">
-<img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
-</a>
-
-<a href="https://portfolio-wheat-omega-31.vercel.app/">
-<img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white" />
-</a>
-
-</div>
-
-
-### ⚡ Learn • Build • Ship • Improve
-
-<br>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12&height=120&section=footer" width="100%"/>
-
-</div>
