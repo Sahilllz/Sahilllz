@@ -27,8 +27,8 @@ jobs:
 
       - name: Generate Tech DNA
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_USERNAME: Sahilllz
+           GITHUB_TOKEN: ${{ secrets.TECH_DNA_TOKEN }}
+           GITHUB_USERNAME: Sahilllz
         run: |
           python - <<'PY'
           import os
