@@ -5,31 +5,25 @@ on:
   schedule:
     - cron: "0 */12 * * *"
 
-permissions:
-  contents: write
-
 jobs:
   pacman:
+    permissions:
+      contents: write
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Generate Pac-Man Contribution Graph
-        uses: pencilrebel/pacman-contribution-graph@main
+      - name: Generate Pac-Man contribution graph
+        uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: Sahilllz
-          output_path: assets/pacman.svg
+          github_token: ${{ secrets.TECH_DNA_TOKEN }}
+          games: pacman
 
-      - name: Commit Pac-Man
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add assets/pacman.svg
-
-          if git diff --cached --quiet; then
-            echo "No changes"
-            exit 0
-          fi
-
-          git commit -m "Update Pac-Man"
-          git push
+      - name: Push generated SVGs
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          build_dir: dist
+          target_branch: output
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
