@@ -224,18 +224,12 @@ A collection of TypeScript experiments, utilities, and developer-focused project
 />
 
 <br>
-
 <sub>
 Automatically generated from my GitHub repositories • Updated weekly
 </sub>
 
 </div>
 
-<div align="center">
-
-<img src="./assets/digital-hunter.svg" width="100%" alt="Digital Hunter">
-
-</div>
 
 ## 🌐 Let's Connect
 
