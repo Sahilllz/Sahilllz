@@ -94,6 +94,27 @@ As projects become more mature, they'll be added here.
 ---
 
 
+---
+
+## 🧬 My Tech DNA
+
+<div align="center">
+
+<img
+  src="./assets/tech-dna.svg"
+  width="100%"
+  alt="Sahil's Tech DNA"
+/>
+
+<br><br>
+
+<sub>
+Automatically generated from my GitHub repositories • Updated weekly
+</sub>
+
+</div>
+
+
 
 ## 🌐 Let's Connect
 
