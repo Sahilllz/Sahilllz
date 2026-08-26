@@ -37,37 +37,93 @@ I'm currently focused on strengthening my foundations in software engineering wh
 
 
 
-## 🛠️ Skills & Tech Stack
+## 🛠️ Skill Stack
+
+<div align="center">
+
+<table width="100%">
+
+<tr>
+
+<td width="50%" valign="top">
 
 ### 💻 Languages
 
 <p align="center">
-<img src="https://skillicons.dev/icons?i=python,java,kotlin,javascript,cpp,c,html,css" />
+<img src="https://skillicons.dev/icons?i=ts,js,python,kotlin,java,cpp" />
 </p>
 
-### 🌐 Development
+</td>
+
+<td width="50%" valign="top">
+
+### 🌐 Web Development
 
 <p align="center">
-<img src="https://skillicons.dev/icons?i=react,nodejs,androidstudio,firebase" />
+<img src="https://skillicons.dev/icons?i=react,nextjs,nodejs,html,css,tailwind" />
 </p>
 
-### ⚙️ Tools
+</td>
+
+</tr>
+
+<tr>
+
+<td width="50%" valign="top">
+
+### 📱 App Development
 
 <p align="center">
-<img src="https://skillicons.dev/icons?i=git,github,vscode,figma" />
+<img src="https://skillicons.dev/icons?i=androidstudio,kotlin,firebase" />
 </p>
 
-### 🤖 AI & Machine Learning
+</td>
+
+<td width="50%" valign="top">
+
+### 🗄️ Backend & Database
+
+<p align="center">
+<img src="https://skillicons.dev/icons?i=nodejs,mongodb,mysql,firebase" />
+</p>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td width="50%" valign="top">
+
+### 🤖 AI & Automation
 
 <p align="center">
 
-<img src="https://img.shields.io/badge/AI-Engineering-111827?style=for-the-badge&logo=openai&logoColor=white" />
+<img src="https://img.shields.io/badge/AI%20Engineering-0B1020?style=for-the-badge&logo=openai&logoColor=00F7FF" />
 
-<img src="https://img.shields.io/badge/Machine-Learning-111827?style=for-the-badge&logo=tensorflow&logoColor=FF6F00" />
+<img src="https://img.shields.io/badge/Machine%20Learning-0B1020?style=for-the-badge&logo=tensorflow&logoColor=FF6F00" />
 
-<img src="https://img.shields.io/badge/AI-Automation-111827?style=for-the-badge&logo=robotframework&logoColor=white" />
+<img src="https://img.shields.io/badge/AI%20Automation-0B1020?style=for-the-badge&logo=robotframework&logoColor=00F7FF" />
 
 </p>
+
+</td>
+
+<td width="50%" valign="top">
+
+### ⚙️ Tools & Platforms
+
+<p align="center">
+<img src="https://skillicons.dev/icons?i=git,github,vscode,figma,vercel" />
+</p>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
 
 ---
 
