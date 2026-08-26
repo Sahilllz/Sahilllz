@@ -75,21 +75,89 @@ I'm currently focused on strengthening my foundations in software engineering wh
 
 ### 💰 SpendSense
 
-**Personal Finance Management Application**
-
-A project focused on helping users track, understand, and manage their personal spending through a simple and practical experience.
-
-**Tech:** `Android` • `Kotlin` • `Firebase` • `UI/UX`
-
-**Status:** 🚧 In Development
-
 ---
 
-### 🧠 More Projects Coming
+## 🚀 Projects
 
-I'm continuously experimenting with new ideas across **AI, software development, automation, and product design**.
+<div align="center">
 
-As projects become more mature, they'll be added here.
+<table width="100%">
+
+<tr>
+<td width="12%" align="center">
+<h2>💰</h2>
+</td>
+
+<td width="63%">
+
+### 💜 SpendSense
+
+Personal finance management application focused on tracking spending, budgets, and financial insights.
+
+`Kotlin` • `Android` • `Firebase` • `UI/UX`
+
+</td>
+
+<td width="25%" align="center">
+
+<a href="https://github.com/Sahilllz/spendsense">
+<b>View Repository →</b>
+</a>
+
+</td>
+</tr>
+
+<tr>
+<td width="12%" align="center">
+<h2>📝</h2>
+</td>
+
+<td width="63%">
+
+### 🧑‍💻 GitCommitter
+
+A developer-focused project for exploring GitHub commit activity, statistics, and contribution insights.
+
+`TypeScript` • `Next.js` • `MongoDB` • `Chart.js`
+
+</td>
+
+<td width="25%" align="center">
+
+<a href="https://github.com/Sahilllz">
+<b>View Repository →</b>
+</a>
+
+</td>
+</tr>
+
+<tr>
+<td width="12%" align="center">
+<h2>🧪</h2>
+</td>
+
+<td width="63%">
+
+### 🧪 TypeLabs
+
+A collection of TypeScript experiments, utilities, and developer-focused projects.
+
+`TypeScript` • `Vite` • `Tailwind CSS`
+
+</td>
+
+<td width="25%" align="center">
+
+<a href="https://github.com/Sahilllz">
+<b>View Repository →</b>
+</a>
+
+</td>
+</tr>
+
+</table>
+
+</div>
 
 ---
 
