@@ -231,7 +231,11 @@ Automatically generated from my GitHub repositories • Updated weekly
 
 </div>
 
+<div align="center">
 
+<img src="./assets/digital-hunter.svg" width="100%" alt="Digital Hunter">
+
+</div>
 
 ## 🌐 Let's Connect
 
