@@ -1,23 +1,19 @@
 
 <div align="center">
 
-# 👋 Hi, I'm Sahil Singone
-
-### Computer Science Student • AI & Software Builder
-
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=21&duration=2800&pause=900&color=00F7FF&center=true&vCenter=true&width=650&lines=Exploring+AI+%26+Machine+Learning;Building+Real+World+Software;Learning+System+Design;Creating+%26+Shipping+Projects;Always+Learning%2C+Always+Building" />
-
+<img
+src="https://capsule-render.vercel.app/api?type=waving&color=0:020617,35:0B3B82,70:0066FF,100:00D9FF&height=220&section=header&text=SAHIL%20SINGONE&fontSize=55&fontColor=FFFFFF&fontAlignY=38&animation=fadeIn&desc=SOFTWARE%20BUILDER%20%7C%20AI%20EXPLORER%20%7C%20PRODUCT%20DEVELOPER&descAlignY=62&descSize=16"
+width="100%"
+/>
 <br>
-
-<a href="https://github.com/Sahilllz">
-<img src="https://komarev.com/ghpvc/?username=Sahilllz&label=PROFILE+VIEWS&color=00F7FF&style=for-the-badge" />
-</a>
-
+<img
+src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=20&duration=2600&pause=700&color=00D9FF&center=true&vCenter=true&width=850&lines=%3E+whoami;Computer+Science+Student+%7C+Software+Builder;%3E+building+digital+products;%3E+exploring+AI+%26+automation;%3E+learning+system+design;%3E+turning+ideas+into+working+software"
+ />
+<br><br>
+<img
+src="https://komarev.com/ghpvc/?username=Sahilllz&label=PROFILE+VIEWS&color=00D9FF&style=for-the-badge"
+/>
 </div>
-
----
-
-
 
 ## 👨‍💻 Introduction
 
