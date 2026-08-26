@@ -13,27 +13,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.x"
-
-      - name: Install dependencies
-        run: |
-          pip install requests matplotlib
 
       - name: Generate Tech DNA
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USERNAME: Sahilllz
         run: |
+
           python - <<'PY'
+
           import os
+          import math
+          import html
           import requests
-          import matplotlib.pyplot as plt
+          from datetime import datetime, timezone
 
           username = os.environ["GITHUB_USERNAME"]
           token = os.environ["GITHUB_TOKEN"]
@@ -43,45 +44,51 @@ jobs:
               "Accept": "application/vnd.github+json"
           }
 
-          repos = []
+          # -------------------------------------------------
+          # GET ALL REPOSITORIES
+          # -------------------------------------------------
+
+          repositories = []
           page = 1
 
           while True:
-              url = f"https://api.github.com/users/{username}/repos"
-              params = {
-                  "per_page": 100,
-                  "page": page,
-                  "type": "owner"
-              }
 
               response = requests.get(
-                  url,
+                  f"https://api.github.com/users/{username}/repos",
                   headers=headers,
-                  params=params
+                  params={
+                      "per_page": 100,
+                      "page": page,
+                      "type": "owner"
+                  }
               )
 
               response.raise_for_status()
+
               data = response.json()
 
               if not data:
                   break
 
-              repos.extend(data)
+              repositories.extend(data)
               page += 1
+
+          # -------------------------------------------------
+          # COLLECT LANGUAGE DATA
+          # -------------------------------------------------
 
           languages = {}
 
-          for repo in repos:
+          for repo in repositories:
+
               if repo.get("fork"):
                   continue
 
               owner = repo["owner"]["login"]
               name = repo["name"]
 
-              url = f"https://api.github.com/repos/{owner}/{name}/languages"
-
               response = requests.get(
-                  url,
+                  f"https://api.github.com/repos/{owner}/{name}/languages",
                   headers=headers
               )
 
@@ -90,18 +97,25 @@ jobs:
 
               repo_languages = response.json()
 
-              for language, bytes_used in repo_languages.items():
+              for language, amount in repo_languages.items():
+
                   languages[language] = (
-                      languages.get(language, 0) + bytes_used
+                      languages.get(language, 0) + amount
                   )
 
           if not languages:
-              raise RuntimeError("No language data found.")
+              raise RuntimeError(
+                  "No programming language data was found."
+              )
+
+          # -------------------------------------------------
+          # SORT LANGUAGES
+          # -------------------------------------------------
 
           languages = dict(
               sorted(
                   languages.items(),
-                  key=lambda item: item[1],
+                  key=lambda x: x[1],
                   reverse=True
               )
           )
@@ -113,63 +127,302 @@ jobs:
               for language, value in languages.items()
           }
 
-          # Keep the chart readable.
-          top = dict(list(percentages.items())[:7])
+          # Keep the chart readable
+          top = dict(list(percentages.items())[:6])
 
-          others = sum(
-              value for language, value in percentages.items()
+          other = sum(
+              value
+              for language, value in percentages.items()
               if language not in top
           )
 
-          if others > 0:
-              top["Other"] = others
+          if other > 0:
+              top["Other"] = other
+
+          # -------------------------------------------------
+          # COLORS
+          # -------------------------------------------------
+
+          colors = [
+              "#00F7FF",
+              "#7B2FF7",
+              "#FF4ECD",
+              "#00E676",
+              "#FFD166",
+              "#FF6B6B",
+              "#64748B"
+          ]
+
+          # -------------------------------------------------
+          # CREATE SVG
+          # -------------------------------------------------
+
+          width = 1100
+          height = 650
+
+          svg = []
+
+          svg.append(
+              f'<svg xmlns="http://www.w3.org/2000/svg" '
+              f'width="{width}" height="{height}" '
+              f'viewBox="0 0 {width} {height}">'
+          )
+
+          # Background
+          svg.append("""
+          <defs>
+
+            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0B1020"/>
+              <stop offset="50%" stop-color="#111827"/>
+              <stop offset="100%" stop-color="#05070D"/>
+            </linearGradient>
+
+            <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#00F7FF"/>
+              <stop offset="100%" stop-color="#7B2FF7"/>
+            </linearGradient>
+
+            <filter id="shadow">
+              <feDropShadow
+                dx="0"
+                dy="8"
+                stdDeviation="12"
+                flood-opacity="0.45"
+              />
+            </filter>
+
+            <filter id="neon">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+
+          </defs>
+          """)
+
+          svg.append(
+              '<rect width="1100" height="650" rx="30" '
+              'fill="url(#bg)" filter="url(#shadow)"/>'
+          )
+
+          # Decorative border
+          svg.append(
+              '<rect x="2" y="2" width="1096" height="646" rx="30" '
+              'fill="none" stroke="url(#glow)" '
+              'stroke-width="2" opacity="0.6"/>'
+          )
+
+          # Title
+          svg.append("""
+          <text x="60" y="75"
+                fill="#FFFFFF"
+                font-family="Arial, Helvetica, sans-serif"
+                font-size="32"
+                font-weight="700">
+            🧬 SAHIL'S TECH DNA
+          </text>
+          """)
+
+          svg.append("""
+          <text x="62" y="108"
+                fill="#94A3B8"
+                font-family="Arial, Helvetica, sans-serif"
+                font-size="17">
+            Technology distribution across my GitHub repositories
+          </text>
+          """)
+
+          # Live indicator
+          svg.append("""
+          <circle cx="1000" cy="68" r="7" fill="#00E676"/>
+          <text x="1018" y="74"
+                fill="#CBD5E1"
+                font-family="Arial, Helvetica, sans-serif"
+                font-size="15">
+            GITHUB • LIVE
+          </text>
+          """)
+
+          # -------------------------------------------------
+          # DONUT CHART
+          # -------------------------------------------------
+
+          cx = 310
+          cy = 355
+
+          radius = 145
+          stroke = 62
+
+          circumference = 2 * math.pi * radius
+
+          offset = 0
+
+          for index, (language, percentage) in enumerate(top.items()):
+
+              color = colors[index % len(colors)]
+
+              dash = percentage / 100 * circumference
+
+              svg.append(
+                  f'<circle cx="{cx}" cy="{cy}" r="{radius}" '
+                  f'fill="none" '
+                  f'stroke="{color}" '
+                  f'stroke-width="{stroke}" '
+                  f'stroke-dasharray="{dash} {circumference - dash}" '
+                  f'stroke-dashoffset="{-offset}" '
+                  f'transform="rotate(-90 {cx} {cy})"/>'
+              )
+
+              offset += dash
+
+          # Center circle
+          svg.append(
+              f'<circle cx="{cx}" cy="{cy}" r="105" '
+              'fill="#0B1020"/>'
+          )
+
+          svg.append("""
+          <text x="310" y="345"
+                text-anchor="middle"
+                fill="#FFFFFF"
+                font-family="Arial, Helvetica, sans-serif"
+                font-size="25"
+                font-weight="700">
+            SAHIL
+          </text>
+
+          <text x="310" y="375"
+                text-anchor="middle"
+                fill="#00F7FF"
+                font-family="Arial, Helvetica, sans-serif"
+                font-size="16">
+            TECH DNA
+          </text>
+          """)
+
+          # -------------------------------------------------
+          # LEGEND
+          # -------------------------------------------------
+
+          legend_x = 565
+          legend_y = 190
+
+          for index, (language, percentage) in enumerate(top.items()):
+
+              color = colors[index % len(colors)]
+
+              y = legend_y + index * 63
+
+              safe_language = html.escape(language)
+
+              # Icon dot
+              svg.append(
+                  f'<circle cx="{legend_x}" cy="{y}" r="9" '
+                  f'fill="{color}" filter="url(#neon)"/>'
+              )
+
+              # Language name
+              svg.append(
+                  f'<text x="{legend_x + 28}" y="{y + 6}" '
+                  f'fill="#F8FAFC" '
+                  f'font-family="Arial, Helvetica, sans-serif" '
+                  f'font-size="18" font-weight="600">'
+                  f'{safe_language}'
+                  f'</text>'
+              )
+
+              # Percentage
+              svg.append(
+                  f'<text x="1010" y="{y + 6}" '
+                  f'text-anchor="end" '
+                  f'fill="{color}" '
+                  f'font-family="Arial, Helvetica, sans-serif" '
+                  f'font-size="18" font-weight="700">'
+                  f'{percentage:.1f}%'
+                  f'</text>'
+              )
+
+              # Progress background
+              svg.append(
+                  f'<rect x="{legend_x}" y="{y + 18}" '
+                  f'width="445" height="5" rx="3" '
+                  f'fill="#1E293B"/>'
+              )
+
+              # Progress
+              svg.append(
+                  f'<rect x="{legend_x}" y="{y + 18}" '
+                  f'width="{445 * percentage / max(top.values())}" '
+                  f'height="5" rx="3" '
+                  f'fill="{color}"/>'
+              )
+
+          # -------------------------------------------------
+          # FOOTER
+          # -------------------------------------------------
+
+          repo_count = sum(
+              1 for repo in repositories
+              if not repo.get("fork")
+          )
+
+          updated = datetime.now(
+              timezone.utc
+          ).strftime("%d %b %Y")
+
+          svg.append(
+              f'<text x="60" y="610" '
+              f'fill="#64748B" '
+              f'font-family="Arial, Helvetica, sans-serif" '
+              f'font-size="14">'
+              f'Based on {repo_count} GitHub repositories'
+              f'</text>'
+          )
+
+          svg.append(
+              f'<text x="1040" y="610" '
+              f'text-anchor="end" '
+              f'fill="#64748B" '
+              f'font-family="Arial, Helvetica, sans-serif" '
+              f'font-size="14">'
+              f'↻ Updated {updated}'
+              f'</text>'
+          )
+
+          svg.append("</svg>")
 
           os.makedirs("assets", exist_ok=True)
 
-          plt.figure(figsize=(10, 7))
-
-          plt.pie(
-              top.values(),
-              labels=[
-                  f"{language} ({value:.1f}%)"
-                  for language, value in top.items()
-              ],
-              startangle=90,
-              wedgeprops={
-                  "width": 0.42,
-                  "edgecolor": "white"
-              }
-          )
-
-          plt.title(
-              "Sahil's Tech DNA",
-              fontsize=20,
-              fontweight="bold"
-          )
-
-          plt.tight_layout()
-
-          plt.savefig(
+          with open(
               "assets/tech-dna.svg",
-              format="svg",
-              transparent=True,
-              bbox_inches="tight"
-          )
+              "w",
+              encoding="utf-8"
+          ) as file:
 
-          plt.close()
+              file.write("\n".join(svg))
 
-          print("Technology distribution:")
+          print("Tech DNA generated successfully.")
+
           for language, percentage in top.items():
-              print(f"{language}: {percentage:.2f}%")
+              print(
+                  f"{language}: {percentage:.2f}%"
+              )
+
           PY
 
       - name: Commit updated chart
         run: |
+
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add assets/tech-dna.svg
 
-          git diff --cached --quiet || git commit -m "Update Tech DNA"
+          git diff --cached --quiet || \
+            git commit -m "Update Tech DNA"
 
           git push
