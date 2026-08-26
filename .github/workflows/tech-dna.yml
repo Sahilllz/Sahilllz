@@ -27,8 +27,8 @@ jobs:
 
       - name: Generate Tech DNA
         env:
-           GITHUB_TOKEN: ${{ secrets.TECH_DNA_TOKEN }}
-           GITHUB_USERNAME: Sahilllz
+          GITHUB_TOKEN: ${{ secrets.TECH_DNA_TOKEN }}
+          GITHUB_USERNAME: Sahilllz
         run: |
           python - <<'PY'
           import os
@@ -46,7 +46,7 @@ jobs:
           }
 
           # -------------------------------------------------
-          # GET ALL REPOSITORIES
+          # GET ALL ACCESSIBLE OWNED REPOSITORIES
           # -------------------------------------------------
 
           repositories = []
@@ -54,12 +54,14 @@ jobs:
 
           while True:
               response = requests.get(
-                  f"https://api.github.com/users/{username}/repos",
+                  "https://api.github.com/user/repos",
                   headers=headers,
                   params={
                       "per_page": 100,
                       "page": page,
-                      "type": "owner"
+                      "visibility": "all",
+                      "affiliation": "owner",
+                      "sort": "updated"
                   }
               )
 
@@ -73,6 +75,8 @@ jobs:
               repositories.extend(data)
               page += 1
 
+          print(f"Repositories found: {len(repositories)}")
+
           # -------------------------------------------------
           # COLLECT LANGUAGE DATA
           # -------------------------------------------------
@@ -80,11 +84,14 @@ jobs:
           languages = {}
 
           for repo in repositories:
+
               if repo.get("fork"):
                   continue
 
               owner = repo["owner"]["login"]
               name = repo["name"]
+
+              print(f"Analyzing: {owner}/{name}")
 
               response = requests.get(
                   f"https://api.github.com/repos/{owner}/{name}/languages",
@@ -92,6 +99,10 @@ jobs:
               )
 
               if response.status_code != 200:
+                  print(
+                      f"Skipping {name}: "
+                      f"HTTP {response.status_code}"
+                  )
                   continue
 
               repo_languages = response.json()
@@ -125,8 +136,10 @@ jobs:
               for language, value in languages.items()
           }
 
-          # Keep the chart readable
-          top = dict(list(percentages.items())[:6])
+          # Keep chart readable
+          top = dict(
+              list(percentages.items())[:6]
+          )
 
           other = sum(
               value
@@ -166,9 +179,13 @@ jobs:
               f'viewBox="0 0 {width} {height}">'
           )
 
-          # Background
+          # -------------------------------------------------
+          # SVG DEFINITIONS
+          # -------------------------------------------------
+
           svg.append("""
           <defs>
+
             <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="#0B1020"/>
               <stop offset="50%" stop-color="#111827"/>
@@ -190,28 +207,40 @@ jobs:
             </filter>
 
             <filter id="neon">
-              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feGaussianBlur
+                stdDeviation="4"
+                result="blur"
+              />
+
               <feMerge>
                 <feMergeNode in="blur"/>
                 <feMergeNode in="SourceGraphic"/>
               </feMerge>
             </filter>
+
           </defs>
           """)
+
+          # -------------------------------------------------
+          # BACKGROUND
+          # -------------------------------------------------
 
           svg.append(
               '<rect width="1100" height="650" rx="30" '
               'fill="url(#bg)" filter="url(#shadow)"/>'
           )
 
-          # Decorative border
+          # Border
           svg.append(
               '<rect x="2" y="2" width="1096" height="646" rx="30" '
               'fill="none" stroke="url(#glow)" '
               'stroke-width="2" opacity="0.6"/>'
           )
 
-          # Title
+          # -------------------------------------------------
+          # TITLE
+          # -------------------------------------------------
+
           svg.append("""
           <text x="60" y="75"
                 fill="#FFFFFF"
@@ -233,7 +262,13 @@ jobs:
 
           # Live indicator
           svg.append("""
-          <circle cx="1000" cy="68" r="7" fill="#00E676"/>
+          <circle
+            cx="1000"
+            cy="68"
+            r="7"
+            fill="#00E676"
+          />
+
           <text x="1018" y="74"
                 fill="#CBD5E1"
                 font-family="Arial, Helvetica, sans-serif"
@@ -257,26 +292,38 @@ jobs:
           offset = 0
 
           for index, (language, percentage) in enumerate(top.items()):
-              color = colors[index % len(colors)]
 
-              dash = percentage / 100 * circumference
+              color = colors[
+                  index % len(colors)
+              ]
+
+              dash = (
+                  percentage / 100
+              ) * circumference
 
               svg.append(
-                  f'<circle cx="{cx}" cy="{cy}" r="{radius}" '
+                  f'<circle '
+                  f'cx="{cx}" '
+                  f'cy="{cy}" '
+                  f'r="{radius}" '
                   f'fill="none" '
                   f'stroke="{color}" '
                   f'stroke-width="{stroke}" '
-                  f'stroke-dasharray="{dash} {circumference - dash}" '
+                  f'stroke-dasharray="'
+                  f'{dash} {circumference - dash}" '
                   f'stroke-dashoffset="{-offset}" '
                   f'transform="rotate(-90 {cx} {cy})"/>'
               )
 
               offset += dash
 
-          # Center circle
+          # Center
           svg.append(
-              f'<circle cx="{cx}" cy="{cy}" r="105" '
-              'fill="#0B1020"/>'
+              f'<circle '
+              f'cx="{cx}" '
+              f'cy="{cy}" '
+              f'r="105" '
+              f'fill="#0B1020"/>'
           )
 
           svg.append("""
@@ -305,52 +352,87 @@ jobs:
           legend_x = 565
           legend_y = 190
 
+          max_percentage = max(
+              top.values()
+          )
+
           for index, (language, percentage) in enumerate(top.items()):
-              color = colors[index % len(colors)]
 
-              y = legend_y + index * 63
+              color = colors[
+                  index % len(colors)
+              ]
 
-              safe_language = html.escape(language)
+              y = (
+                  legend_y
+                  + index * 63
+              )
 
-              # Icon dot
+              safe_language = html.escape(
+                  language
+              )
+
+              # Language dot
               svg.append(
-                  f'<circle cx="{legend_x}" cy="{y}" r="9" '
-                  f'fill="{color}" filter="url(#neon)"/>'
+                  f'<circle '
+                  f'cx="{legend_x}" '
+                  f'cy="{y}" '
+                  f'r="9" '
+                  f'fill="{color}" '
+                  f'filter="url(#neon)"/>'
               )
 
               # Language name
               svg.append(
-                  f'<text x="{legend_x + 28}" y="{y + 6}" '
+                  f'<text '
+                  f'x="{legend_x + 28}" '
+                  f'y="{y + 6}" '
                   f'fill="#F8FAFC" '
                   f'font-family="Arial, Helvetica, sans-serif" '
-                  f'font-size="18" font-weight="600">'
+                  f'font-size="18" '
+                  f'font-weight="600">'
                   f'{safe_language}'
                   f'</text>'
               )
 
               # Percentage
               svg.append(
-                  f'<text x="1010" y="{y + 6}" '
+                  f'<text '
+                  f'x="1010" '
+                  f'y="{y + 6}" '
                   f'text-anchor="end" '
                   f'fill="{color}" '
                   f'font-family="Arial, Helvetica, sans-serif" '
-                  f'font-size="18" font-weight="700">'
+                  f'font-size="18" '
+                  f'font-weight="700">'
                   f'{percentage:.1f}%'
                   f'</text>'
               )
 
               # Progress background
               svg.append(
-                  f'<rect x="{legend_x}" y="{y + 18}" '
-                  f'width="445" height="5" rx="3" '
+                  f'<rect '
+                  f'x="{legend_x}" '
+                  f'y="{y + 18}" '
+                  f'width="445" '
+                  f'height="5" '
+                  f'rx="3" '
                   f'fill="#1E293B"/>'
               )
 
               # Progress
+              progress_width = (
+                  445
+                  * percentage
+                  / max_percentage
+              )
+
               svg.append(
-                  f'<rect x="{legend_x}" y="{y + 18}" '
-                  f'width="{445 * percentage / max(top.values())}" '
-                  f'height="5" rx="3" '
+                  f'<rect '
+                  f'x="{legend_x}" '
+                  f'y="{y + 18}" '
+                  f'width="{progress_width}" '
+                  f'height="5" '
+                  f'rx="3" '
                   f'fill="{color}"/>'
               )
 
@@ -359,7 +441,8 @@ jobs:
           # -------------------------------------------------
 
           repo_count = sum(
-              1 for repo in repositories
+              1
+              for repo in repositories
               if not repo.get("fork")
           )
 
@@ -368,7 +451,9 @@ jobs:
           ).strftime("%d %b %Y")
 
           svg.append(
-              f'<text x="60" y="610" '
+              f'<text '
+              f'x="60" '
+              f'y="610" '
               f'fill="#64748B" '
               f'font-family="Arial, Helvetica, sans-serif" '
               f'font-size="14">'
@@ -377,7 +462,9 @@ jobs:
           )
 
           svg.append(
-              f'<text x="1040" y="610" '
+              f'<text '
+              f'x="1040" '
+              f'y="610" '
               f'text-anchor="end" '
               f'fill="#64748B" '
               f'font-family="Arial, Helvetica, sans-serif" '
@@ -386,22 +473,45 @@ jobs:
               f'</text>'
           )
 
+          # -------------------------------------------------
+          # SAVE SVG
+          # -------------------------------------------------
+
           svg.append("</svg>")
 
-          os.makedirs("assets", exist_ok=True)
+          os.makedirs(
+              "assets",
+              exist_ok=True
+          )
 
           with open(
               "assets/tech-dna.svg",
               "w",
               encoding="utf-8"
           ) as file:
-              file.write("\n".join(svg))
 
-          print("Tech DNA generated successfully.")
+              file.write(
+                  "\n".join(svg)
+              )
+
+          print(
+              "Tech DNA generated successfully."
+          )
+
+          print(
+              f"Total repositories analyzed: "
+              f"{repo_count}"
+          )
+
+          print(
+              "Technology breakdown:"
+          )
 
           for language, percentage in top.items():
+
               print(
-                  f"{language}: {percentage:.2f}%"
+                  f"  {language}: "
+                  f"{percentage:.2f}%"
               )
 
           PY
