@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1100" height="650" viewBox="0 0 1100 650">
 
 <defs>
+
   <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
     <stop offset="0%" stop-color="#0B1020"/>
     <stop offset="50%" stop-color="#111827"/>
@@ -22,12 +23,17 @@
   </filter>
 
   <filter id="neon">
-    <feGaussianBlur stdDeviation="4" result="blur"/>
+    <feGaussianBlur
+      stdDeviation="4"
+      result="blur"
+    />
+
     <feMerge>
       <feMergeNode in="blur"/>
       <feMergeNode in="SourceGraphic"/>
     </feMerge>
   </filter>
+
 </defs>
 
 <rect width="1100" height="650" rx="30" fill="url(#bg)" filter="url(#shadow)"/>
@@ -50,7 +56,13 @@
 </text>
 
 
-<circle cx="1000" cy="68" r="7" fill="#00E676"/>
+<circle
+  cx="1000"
+  cy="68"
+  r="7"
+  fill="#00E676"
+/>
+
 <text x="1018" y="74"
       fill="#CBD5E1"
       font-family="Arial, Helvetica, sans-serif"
@@ -58,10 +70,12 @@
   GITHUB • LIVE
 </text>
 
-<circle cx="310" cy="355" r="145" fill="none" stroke="#00F7FF" stroke-width="62" stroke-dasharray="348.5718135269011 562.4900560141389" stroke-dashoffset="0" transform="rotate(-90 310 355)"/>
-<circle cx="310" cy="355" r="145" fill="none" stroke="#7B2FF7" stroke-width="62" stroke-dasharray="290.54477365411003 620.51709588693" stroke-dashoffset="-348.5718135269011" transform="rotate(-90 310 355)"/>
-<circle cx="310" cy="355" r="145" fill="none" stroke="#FF4ECD" stroke-width="62" stroke-dasharray="250.051127290733 661.010742250307" stroke-dashoffset="-639.1165871810111" transform="rotate(-90 310 355)"/>
-<circle cx="310" cy="355" r="145" fill="none" stroke="#00E676" stroke-width="62" stroke-dasharray="21.89415506929578 889.1677144717441" stroke-dashoffset="-889.1677144717441" transform="rotate(-90 310 355)"/>
+<circle cx="310" cy="355" r="145" fill="none" stroke="#00F7FF" stroke-width="62" stroke-dasharray="561.2450261285528 349.8168434124872" stroke-dashoffset="0" transform="rotate(-90 310 355)"/>
+<circle cx="310" cy="355" r="145" fill="none" stroke="#7B2FF7" stroke-width="62" stroke-dasharray="126.31985744481159 784.7420120962283" stroke-dashoffset="-561.2450261285528" transform="rotate(-90 310 355)"/>
+<circle cx="310" cy="355" r="145" fill="none" stroke="#FF4ECD" stroke-width="62" stroke-dasharray="123.73231962392425 787.3295499171157" stroke-dashoffset="-687.5648835733643" transform="rotate(-90 310 355)"/>
+<circle cx="310" cy="355" r="145" fill="none" stroke="#00E676" stroke-width="62" stroke-dasharray="90.78476292101676 820.2771066200232" stroke-dashoffset="-811.2972031972886" transform="rotate(-90 310 355)"/>
+<circle cx="310" cy="355" r="145" fill="none" stroke="#FFD166" stroke-width="62" stroke-dasharray="7.722249572188327 903.3396199688517" stroke-dashoffset="-902.0819661183053" transform="rotate(-90 310 355)"/>
+<circle cx="310" cy="355" r="145" fill="none" stroke="#FF6B6B" stroke-width="62" stroke-dasharray="1.2576538505462145 909.8042156904937" stroke-dashoffset="-909.8042156904936" transform="rotate(-90 310 355)"/>
 <circle cx="310" cy="355" r="105" fill="#0B1020"/>
 
 <text x="310" y="345"
@@ -82,25 +96,35 @@
 </text>
 
 <circle cx="565" cy="190" r="9" fill="#00F7FF" filter="url(#neon)"/>
-<text x="593" y="196" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">HTML</text>
-<text x="1010" y="196" text-anchor="end" fill="#00F7FF" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">38.3%</text>
+<text x="593" y="196" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">TypeScript</text>
+<text x="1010" y="196" text-anchor="end" fill="#00F7FF" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">61.6%</text>
 <rect x="565" y="208" width="445" height="5" rx="3" fill="#1E293B"/>
-<rect x="565" y="208" width="445.00000000000006" height="5" rx="3" fill="#00F7FF"/>
+<rect x="565" y="208" width="445.0" height="5" rx="3" fill="#00F7FF"/>
 <circle cx="565" cy="253" r="9" fill="#7B2FF7" filter="url(#neon)"/>
 <text x="593" y="259" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">CSS</text>
-<text x="1010" y="259" text-anchor="end" fill="#7B2FF7" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">31.9%</text>
+<text x="1010" y="259" text-anchor="end" fill="#7B2FF7" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">13.9%</text>
 <rect x="565" y="271" width="445" height="5" rx="3" fill="#1E293B"/>
-<rect x="565" y="271" width="370.92047967929227" height="5" rx="3" fill="#7B2FF7"/>
+<rect x="565" y="271" width="100.15649840265267" height="5" rx="3" fill="#7B2FF7"/>
 <circle cx="565" cy="316" r="9" fill="#FF4ECD" filter="url(#neon)"/>
-<text x="593" y="322" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">JavaScript</text>
-<text x="1010" y="322" text-anchor="end" fill="#FF4ECD" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">27.4%</text>
+<text x="593" y="322" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">HTML</text>
+<text x="1010" y="322" text-anchor="end" fill="#FF4ECD" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">13.6%</text>
 <rect x="565" y="334" width="445" height="5" rx="3" fill="#1E293B"/>
-<rect x="565" y="334" width="319.2247546309097" height="5" rx="3" fill="#FF4ECD"/>
+<rect x="565" y="334" width="98.10489121383257" height="5" rx="3" fill="#FF4ECD"/>
 <circle cx="565" cy="379" r="9" fill="#00E676" filter="url(#neon)"/>
-<text x="593" y="385" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">Python</text>
-<text x="1010" y="385" text-anchor="end" fill="#00E676" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">2.4%</text>
+<text x="593" y="385" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">JavaScript</text>
+<text x="1010" y="385" text-anchor="end" fill="#00E676" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">10.0%</text>
 <rect x="565" y="397" width="445" height="5" rx="3" fill="#1E293B"/>
-<rect x="565" y="397" width="27.95090890240531" height="5" rx="3" fill="#00E676"/>
-<text x="60" y="610" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="14">Based on 3 GitHub repositories</text>
+<rect x="565" y="397" width="71.98142989083532" height="5" rx="3" fill="#00E676"/>
+<circle cx="565" cy="442" r="9" fill="#FFD166" filter="url(#neon)"/>
+<text x="593" y="448" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">Python</text>
+<text x="1010" y="448" text-anchor="end" fill="#FFD166" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">0.8%</text>
+<rect x="565" y="460" width="445" height="5" rx="3" fill="#1E293B"/>
+<rect x="565" y="460" width="6.122817841839903" height="5" rx="3" fill="#FFD166"/>
+<circle cx="565" cy="505" r="9" fill="#FF6B6B" filter="url(#neon)"/>
+<text x="593" y="511" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">PowerShell</text>
+<text x="1010" y="511" text-anchor="end" fill="#FF6B6B" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">0.1%</text>
+<rect x="565" y="523" width="445" height="5" rx="3" fill="#1E293B"/>
+<rect x="565" y="523" width="0.9971686829076264" height="5" rx="3" fill="#FF6B6B"/>
+<text x="60" y="610" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="14">Based on 6 GitHub repositories</text>
 <text x="1040" y="610" text-anchor="end" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="14">Updated 26 Aug 2026</text>
 </svg>
