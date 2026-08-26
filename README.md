@@ -230,6 +230,9 @@ Automatically generated from my GitHub repositories • Updated weekly
 
 </div>
 
+<div align="center">
+
+</div>
 
 ## 🌐 Let's Connect
 
@@ -262,6 +265,13 @@ Automatically generated from my GitHub repositories • Updated weekly
 
 ---
 
+### 🟡 Contribution Activity
+
+<img
+  src="https://raw.githubusercontent.com/Sahilllz/Sahilllz/output/pacman-contribution-graph-dark.svg"
+  width="100%"
+  alt="Pac-Man contribution graph"
+/>
 
 
 ## 💡 Philosophy
@@ -279,3 +289,5 @@ Automatically generated from my GitHub repositories • Updated weekly
 ### ⚡ Learn • Build • Ship • Repeat
 
 </div>
+
+
