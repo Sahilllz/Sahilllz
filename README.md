@@ -71,11 +71,6 @@ I'm currently focused on strengthening my foundations in software engineering wh
 
 ---
 
-## 🚀 Projects
-
-### 💰 SpendSense
-
----
 
 ## 🚀 Projects
 
@@ -164,17 +159,19 @@ A collection of TypeScript experiments, utilities, and developer-focused project
 
 ---
 
+---
+
 ## 🧬 My Tech DNA
 
 <div align="center">
 
 <img
   src="./assets/tech-dna.svg"
-  width="100%"
+  width="850"
   alt="Sahil's Tech DNA"
 />
 
-<br><br>
+<br>
 
 <sub>
 Automatically generated from my GitHub repositories • Updated weekly
