@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v5
 
@@ -22,14 +21,16 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Install dependencies
+        run: |
+          pip install requests
+
       - name: Generate Tech DNA
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USERNAME: Sahilllz
         run: |
-
           python - <<'PY'
-
           import os
           import math
           import html
@@ -52,7 +53,6 @@ jobs:
           page = 1
 
           while True:
-
               response = requests.get(
                   f"https://api.github.com/users/{username}/repos",
                   headers=headers,
@@ -80,7 +80,6 @@ jobs:
           languages = {}
 
           for repo in repositories:
-
               if repo.get("fork"):
                   continue
 
@@ -98,7 +97,6 @@ jobs:
               repo_languages = response.json()
 
               for language, amount in repo_languages.items():
-
                   languages[language] = (
                       languages.get(language, 0) + amount
                   )
@@ -171,7 +169,6 @@ jobs:
           # Background
           svg.append("""
           <defs>
-
             <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="#0B1020"/>
               <stop offset="50%" stop-color="#111827"/>
@@ -199,7 +196,6 @@ jobs:
                 <feMergeNode in="SourceGraphic"/>
               </feMerge>
             </filter>
-
           </defs>
           """)
 
@@ -222,7 +218,7 @@ jobs:
                 font-family="Arial, Helvetica, sans-serif"
                 font-size="32"
                 font-weight="700">
-            🧬 SAHIL'S TECH DNA
+            SAHIL'S TECH DNA
           </text>
           """)
 
@@ -261,7 +257,6 @@ jobs:
           offset = 0
 
           for index, (language, percentage) in enumerate(top.items()):
-
               color = colors[index % len(colors)]
 
               dash = percentage / 100 * circumference
@@ -311,7 +306,6 @@ jobs:
           legend_y = 190
 
           for index, (language, percentage) in enumerate(top.items()):
-
               color = colors[index % len(colors)]
 
               y = legend_y + index * 63
@@ -388,7 +382,7 @@ jobs:
               f'fill="#64748B" '
               f'font-family="Arial, Helvetica, sans-serif" '
               f'font-size="14">'
-              f'↻ Updated {updated}'
+              f'Updated {updated}'
               f'</text>'
           )
 
@@ -401,7 +395,6 @@ jobs:
               "w",
               encoding="utf-8"
           ) as file:
-
               file.write("\n".join(svg))
 
           print("Tech DNA generated successfully.")
@@ -415,14 +408,11 @@ jobs:
 
       - name: Commit updated chart
         run: |
-
           git config user.name "github-actions[bot]"
-          git config user.email \
-            "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add assets/tech-dna.svg
 
-          git diff --cached --quiet || \
-            git commit -m "Update Tech DNA"
+          git diff --cached --quiet || git commit -m "Update Tech DNA"
 
           git push
