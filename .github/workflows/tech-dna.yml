@@ -1,0 +1,175 @@
+name: Update Tech DNA
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 0"
+
+permissions:
+  contents: write
+
+jobs:
+  update-tech-dna:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          pip install requests matplotlib
+
+      - name: Generate Tech DNA
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: Sahilllz
+        run: |
+          python - <<'PY'
+          import os
+          import requests
+          import matplotlib.pyplot as plt
+
+          username = os.environ["GITHUB_USERNAME"]
+          token = os.environ["GITHUB_TOKEN"]
+
+          headers = {
+              "Authorization": f"Bearer {token}",
+              "Accept": "application/vnd.github+json"
+          }
+
+          repos = []
+          page = 1
+
+          while True:
+              url = f"https://api.github.com/users/{username}/repos"
+              params = {
+                  "per_page": 100,
+                  "page": page,
+                  "type": "owner"
+              }
+
+              response = requests.get(
+                  url,
+                  headers=headers,
+                  params=params
+              )
+
+              response.raise_for_status()
+              data = response.json()
+
+              if not data:
+                  break
+
+              repos.extend(data)
+              page += 1
+
+          languages = {}
+
+          for repo in repos:
+              if repo.get("fork"):
+                  continue
+
+              owner = repo["owner"]["login"]
+              name = repo["name"]
+
+              url = f"https://api.github.com/repos/{owner}/{name}/languages"
+
+              response = requests.get(
+                  url,
+                  headers=headers
+              )
+
+              if response.status_code != 200:
+                  continue
+
+              repo_languages = response.json()
+
+              for language, bytes_used in repo_languages.items():
+                  languages[language] = (
+                      languages.get(language, 0) + bytes_used
+                  )
+
+          if not languages:
+              raise RuntimeError("No language data found.")
+
+          languages = dict(
+              sorted(
+                  languages.items(),
+                  key=lambda item: item[1],
+                  reverse=True
+              )
+          )
+
+          total = sum(languages.values())
+
+          percentages = {
+              language: (value / total) * 100
+              for language, value in languages.items()
+          }
+
+          # Keep the chart readable.
+          top = dict(list(percentages.items())[:7])
+
+          others = sum(
+              value for language, value in percentages.items()
+              if language not in top
+          )
+
+          if others > 0:
+              top["Other"] = others
+
+          os.makedirs("assets", exist_ok=True)
+
+          plt.figure(figsize=(10, 7))
+
+          plt.pie(
+              top.values(),
+              labels=[
+                  f"{language} ({value:.1f}%)"
+                  for language, value in top.items()
+              ],
+              startangle=90,
+              wedgeprops={
+                  "width": 0.42,
+                  "edgecolor": "white"
+              }
+          )
+
+          plt.title(
+              "Sahil's Tech DNA",
+              fontsize=20,
+              fontweight="bold"
+          )
+
+          plt.tight_layout()
+
+          plt.savefig(
+              "assets/tech-dna.svg",
+              format="svg",
+              transparent=True,
+              bbox_inches="tight"
+          )
+
+          plt.close()
+
+          print("Technology distribution:")
+          for language, percentage in top.items():
+              print(f"{language}: {percentage:.2f}%")
+          PY
+
+      - name: Commit updated chart
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add assets/tech-dna.svg
+
+          git diff --cached --quiet || git commit -m "Update Tech DNA"
+
+          git push
