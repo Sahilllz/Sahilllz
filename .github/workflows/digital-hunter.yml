@@ -41,9 +41,7 @@ jobs:
           token = os.environ.get("GH_TOKEN")
 
           if not token:
-              raise RuntimeError(
-                  "TECH_DNA_TOKEN secret was not found."
-              )
+              raise RuntimeError("TECH_DNA_TOKEN secret was not found.")
 
           query = """
           query($login: String!) {
@@ -67,9 +65,7 @@ jobs:
               "https://api.github.com/graphql",
               json={
                   "query": query,
-                  "variables": {
-                      "login": USERNAME
-                  }
+                  "variables": {"login": USERNAME}
               },
               headers={
                   "Authorization": f"Bearer {token}",
@@ -84,16 +80,14 @@ jobs:
 
           if "errors" in data:
               raise RuntimeError(
-                  "GitHub GraphQL error: "
-                  + str(data["errors"])
+                  "GitHub GraphQL error: " + str(data["errors"])
               )
 
           user = data.get("data", {}).get("user")
 
           if not user:
               raise RuntimeError(
-                  f"GitHub user '{USERNAME}' was not found "
-                  "or is inaccessible."
+                  f"GitHub user '{USERNAME}' was not found."
               )
 
           calendar = (
@@ -109,93 +103,86 @@ jobs:
           for week_index, week in enumerate(weeks):
               for day in week["contributionDays"]:
 
-                  day_copy = dict(day)
-
-                  day_copy["week_index"] = week_index
-
-                  parsed_date = datetime.strptime(
+                  parsed = datetime.strptime(
                       day["date"],
                       "%Y-%m-%d"
                   )
 
-                  # GitHub contribution grid:
-                  # Sunday -> Saturday
-                  day_copy["row"] = (
-                      parsed_date.weekday() + 1
-                  ) % 7
-
-                  days.append(day_copy)
+                  days.append({
+                      "date": day["date"],
+                      "count": day["contributionCount"],
+                      "week": week_index,
+                      "row": (parsed.weekday() + 1) % 7
+                  })
 
           if not days:
               raise RuntimeError(
-                  "No GitHub contribution data was returned."
+                  "No contribution data was returned."
               )
 
-          # -------------------------------------------------
-          # Contribution calculations
-          # -------------------------------------------------
+          # =================================================
+          # CONTRIBUTION STATS
+          # =================================================
 
-          maximum = max(
-              day["contributionCount"]
-              for day in days
-          )
+          maximum = max(day["count"] for day in days)
 
           active_days = sum(
-              day["contributionCount"] > 0
+              day["count"] > 0
               for day in days
           )
 
-          # Current streak
           current_streak = 0
 
           for day in reversed(days):
-
-              if day["contributionCount"] > 0:
+              if day["count"] > 0:
                   current_streak += 1
               else:
                   break
 
-          # Longest streak
           longest_streak = 0
           running = 0
 
           for day in days:
-
-              if day["contributionCount"] > 0:
-
+              if day["count"] > 0:
                   running += 1
-
                   longest_streak = max(
                       longest_streak,
                       running
                   )
-
               else:
                   running = 0
 
-          # -------------------------------------------------
-          # SVG layout
-          # -------------------------------------------------
+          strongest = max(
+              days,
+              key=lambda d: (d["count"], d["date"])
+          )
 
-          width = 1000
+          # =================================================
+          # SVG DIMENSIONS
+          # =================================================
+
+          width = 1100
           height = 410
 
-          left = 58
-          top = 116
+          left = 60
+          top = 105
 
-          cell = 12
-          gap = 3
+          cell = 15
+          gap = 4
           step = cell + gap
 
-          # -------------------------------------------------
-          # Contribution matrix
-          # -------------------------------------------------
+          # 53 weeks × 7 days
+          matrix_width = 53 * step
+
+          # =================================================
+          # CONTRIBUTION MATRIX
+          # =================================================
 
           colors = [
               "#07111F",
-              "#0E2745",
-              "#164B83",
-              "#247DD8",
+              "#0D3158",
+              "#145A9C",
+              "#168BE0",
               "#00D9FF"
           ]
 
@@ -203,34 +190,25 @@ jobs:
 
           for day in days:
 
-              count = day["contributionCount"]
+              count = day["count"]
 
-              week_index = day["week_index"]
-              row = day["row"]
-
-              x = left + week_index * step
-              y = top + row * step
+              x = left + day["week"] * step
+              y = top + day["row"] * step
 
               if maximum == 0:
-
                   level = 0
 
               else:
-
                   ratio = count / maximum
 
                   if count == 0:
                       level = 0
-
                   elif ratio <= 0.25:
                       level = 1
-
                   elif ratio <= 0.50:
                       level = 2
-
                   elif ratio <= 0.75:
                       level = 3
-
                   else:
                       level = 4
 
@@ -243,8 +221,6 @@ jobs:
                     height="{cell}"
                     rx="3"
                     fill="{colors[level]}"
-                    data-date="{day['date']}"
-                    data-count="{count}"
                   >
                     <title>
                       {day['date']}: {count} contributions
@@ -253,21 +229,13 @@ jobs:
                   """
               )
 
-          # -------------------------------------------------
-          # Digital Hunter target
-          # -------------------------------------------------
-
-          strongest = max(
-              days,
-              key=lambda day: (
-                  day["contributionCount"],
-                  day["date"]
-              )
-          )
+          # =================================================
+          # HUNTER TARGET
+          # =================================================
 
           hunter_x = (
               left
-              + strongest["week_index"] * step
+              + strongest["week"] * step
               + cell / 2
           )
 
@@ -277,27 +245,30 @@ jobs:
               + cell / 2
           )
 
-          target_count = strongest["contributionCount"]
+          target_count = strongest["count"]
           target_date = strongest["date"]
 
-          # Keep target label inside the card
-          label_x = min(
-              max(hunter_x + 35, 110),
-              820
-          )
+          # =================================================
+          # TARGET LABEL POSITION
+          # =================================================
 
-          label_y = max(
-              hunter_y - 28,
-              105
-          )
+          label_x = hunter_x + 35
+
+          if label_x > 860:
+              label_x = hunter_x - 225
+
+          label_y = hunter_y - 24
+
+          if label_y < 92:
+              label_y = hunter_y + 35
 
           updated = datetime.now(
               timezone.utc
           ).strftime("%Y-%m-%d")
 
-          # -------------------------------------------------
+          # =================================================
           # SVG
-          # -------------------------------------------------
+          # =================================================
 
           svg = f"""<?xml version="1.0" encoding="UTF-8"?>
 
@@ -306,24 +277,21 @@ jobs:
             viewBox="0 0 {width} {height}"
             width="100%"
             role="img"
-            aria-labelledby="title desc"
           >
 
-            <title id="title">
-              Sahil's Digital Hunter contribution visualization
+            <title>
+              Sahil Singone Digital Hunter
             </title>
 
-            <desc id="desc">
-              A visual representation of Sahilllz's
-              GitHub contribution calendar.
-              The hunter targets the strongest
-              contribution day.
+            <desc>
+              GitHub contribution visualization generated
+              from real contribution data.
             </desc>
 
             <defs>
 
               <linearGradient
-                id="bg"
+                id="background"
                 x1="0%"
                 y1="0%"
                 x2="100%"
@@ -331,19 +299,18 @@ jobs:
               >
                 <stop
                   offset="0%"
-                  stop-color="#040914"
+                  stop-color="#030712"
                 />
 
                 <stop
-                  offset="55%"
-                  stop-color="#081525"
+                  offset="50%"
+                  stop-color="#071525"
                 />
 
                 <stop
                   offset="100%"
-                  stop-color="#0D1022"
+                  stop-color="#0B1020"
                 />
-
               </linearGradient>
 
               <linearGradient
@@ -353,32 +320,29 @@ jobs:
                 x2="100%"
                 y2="0%"
               >
-
                 <stop
                   offset="0%"
                   stop-color="#00D9FF"
                 />
 
                 <stop
-                  offset="55%"
-                  stop-color="#247DD8"
+                  offset="50%"
+                  stop-color="#168BE0"
                 />
 
                 <stop
                   offset="100%"
                   stop-color="#7B2FF7"
                 />
-
               </linearGradient>
 
               <linearGradient
-                id="hunter"
+                id="hunterGradient"
                 x1="0%"
                 y1="0%"
                 x2="100%"
                 y2="100%"
               >
-
                 <stop
                   offset="0%"
                   stop-color="#00D9FF"
@@ -388,17 +352,15 @@ jobs:
                   offset="100%"
                   stop-color="#7B2FF7"
                 />
-
               </linearGradient>
 
               <filter
                 id="glow"
-                x="-150%"
-                y="-150%"
-                width="400%"
-                height="400%"
+                x="-200%"
+                y="-200%"
+                width="500%"
+                height="500%"
               >
-
                 <feGaussianBlur
                   stdDeviation="4"
                   result="blur"
@@ -408,50 +370,24 @@ jobs:
                   <feMergeNode in="blur"/>
                   <feMergeNode in="SourceGraphic"/>
                 </feMerge>
-
-              </filter>
-
-              <filter
-                id="softGlow"
-                x="-100%"
-                y="-100%"
-                width="300%"
-                height="300%"
-              >
-
-                <feGaussianBlur
-                  stdDeviation="2.5"
-                  result="blur"
-                />
-
-                <feMerge>
-                  <feMergeNode in="blur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-
               </filter>
 
             </defs>
 
-            <!-- Background -->
+            <!-- ========================================= -->
+            <!-- BACKGROUND -->
+            <!-- ========================================= -->
 
             <rect
               width="{width}"
               height="{height}"
               rx="24"
-              fill="url(#bg)"
+              fill="url(#background)"
             />
 
-            <!-- Header separator -->
-
-            <path
-              d="M0 82 H{width} M0 95 H{width}"
-              stroke="#13243A"
-              stroke-width="1"
-              opacity="0.55"
-            />
-
-            <!-- Border -->
+            <!-- ========================================= -->
+            <!-- BORDER -->
+            <!-- ========================================= -->
 
             <rect
               x="2"
@@ -464,27 +400,29 @@ jobs:
               stroke-width="2"
             />
 
-            <!-- Title -->
+            <!-- ========================================= -->
+            <!-- HEADER -->
+            <!-- ========================================= -->
 
             <text
-              x="48"
-              y="47"
+              x="52"
+              y="43"
               fill="#FFFFFF"
               font-family="monospace"
-              font-size="27"
+              font-size="25"
               font-weight="700"
-              letter-spacing="1"
+              letter-spacing="1.2"
             >
               DIGITAL HUNTER
             </text>
 
             <text
-              x="48"
-              y="70"
-              fill="#7690B2"
+              x="52"
+              y="65"
+              fill="#7189A8"
               font-family="monospace"
-              font-size="12"
-              letter-spacing="0.8"
+              font-size="11"
+              letter-spacing="1"
             >
               CONTRIBUTION ACTIVITY / {USERNAME}
             </text>
@@ -492,97 +430,104 @@ jobs:
             <!-- Status -->
 
             <circle
-              cx="867"
-              cy="40"
+              cx="960"
+              cy="36"
               r="5"
               fill="#00E676"
-              filter="url(#softGlow)"
+              filter="url(#glow)"
             />
 
             <text
-              x="881"
-              y="45"
+              x="975"
+              y="40"
               fill="#00E676"
               font-family="monospace"
-              font-size="11"
+              font-size="10"
               font-weight="700"
-              letter-spacing="1"
             >
-              LIVE TARGET
+              ONLINE
             </text>
 
-            <!-- Matrix title -->
+            <!-- ========================================= -->
+            <!-- MATRIX LABEL -->
+            <!-- ========================================= -->
 
             <text
-              x="48"
-              y="103"
+              x="52"
+              y="88"
               fill="#00D9FF"
               font-family="monospace"
-              font-size="11"
+              font-size="10"
               font-weight="700"
               letter-spacing="1.2"
             >
               CONTRIBUTION MATRIX
             </text>
 
-            <!-- Contribution cells -->
+            <!-- ========================================= -->
+            <!-- CONTRIBUTION CELLS -->
+            <!-- ========================================= -->
 
             {''.join(cells)}
 
-            <!-- Hunter connection -->
+            <!-- ========================================= -->
+            <!-- HUNTER TRAIL -->
+            <!-- ========================================= -->
 
             <line
               x1="{hunter_x:.2f}"
               y1="{hunter_y:.2f}"
-              x2="{label_x - 12:.2f}"
-              y2="{label_y - 4:.2f}"
+              x2="{label_x:.2f}"
+              y2="{label_y:.2f}"
               stroke="#00D9FF"
               stroke-width="1"
-              stroke-dasharray="3 5"
-              opacity="0.65"
+              stroke-dasharray="3 6"
+              opacity="0.55"
             />
 
-            <!-- Digital Hunter -->
+            <!-- ========================================= -->
+            <!-- DIGITAL HUNTER -->
+            <!-- ========================================= -->
 
             <g
               transform="translate({hunter_x:.2f},{hunter_y:.2f})"
               filter="url(#glow)"
             >
 
-              <!-- Outer scanning pulse -->
+              <!-- Outer scan -->
 
               <circle
                 cx="0"
                 cy="0"
-                r="16"
+                r="20"
                 fill="none"
                 stroke="#00D9FF"
                 stroke-width="1.5"
-                opacity="0.75"
+                opacity="0.7"
               >
 
                 <animate
                   attributeName="r"
-                  values="16;24;16"
-                  dur="2.4s"
+                  values="18;30;18"
+                  dur="2.5s"
                   repeatCount="indefinite"
                 />
 
                 <animate
                   attributeName="opacity"
-                  values="0.75;0.05;0.75"
-                  dur="2.4s"
+                  values="0.7;0.05;0.7"
+                  dur="2.5s"
                   repeatCount="indefinite"
                 />
 
               </circle>
 
-              <!-- Inner targeting ring -->
+              <!-- Inner ring -->
 
               <circle
                 cx="0"
                 cy="0"
-                r="9"
+                r="12"
                 fill="none"
                 stroke="#7B2FF7"
                 stroke-width="1.5"
@@ -590,18 +535,18 @@ jobs:
 
                 <animate
                   attributeName="r"
-                  values="9;13;9"
+                  values="10;15;10"
                   dur="1.8s"
                   repeatCount="indefinite"
                 />
 
               </circle>
 
-              <!-- Hunter core -->
+              <!-- Main hunter -->
 
               <polygon
-                points="0,-10 10,0 0,10 -10,0"
-                fill="url(#hunter)"
+                points="0,-13 13,0 0,13 -13,0"
+                fill="url(#hunterGradient)"
                 stroke="#FFFFFF"
                 stroke-width="1"
               />
@@ -611,103 +556,104 @@ jobs:
               <circle
                 cx="0"
                 cy="0"
-                r="3"
+                r="4"
                 fill="#FFFFFF"
               >
 
                 <animate
                   attributeName="opacity"
-                  values="1;0.35;1"
-                  dur="1.2s"
+                  values="1;0.25;1"
+                  dur="1s"
                   repeatCount="indefinite"
                 />
 
               </circle>
 
-              <!-- Horizontal scan -->
+              <!-- Scan lines -->
 
               <line
-                x1="-29"
+                x1="-38"
                 y1="0"
-                x2="-14"
+                x2="-17"
                 y2="0"
                 stroke="#00D9FF"
                 stroke-width="2"
               />
 
               <line
-                x1="14"
+                x1="17"
                 y1="0"
-                x2="29"
+                x2="38"
                 y2="0"
                 stroke="#00D9FF"
                 stroke-width="2"
               />
 
-              <!-- Vertical scan -->
-
               <line
                 x1="0"
-                y1="-29"
+                y1="-38"
                 x2="0"
-                y2="-14"
+                y2="-17"
                 stroke="#00D9FF"
                 stroke-width="2"
               />
 
               <line
                 x1="0"
-                y1="14"
+                y1="17"
                 x2="0"
-                y2="29"
+                y2="38"
                 stroke="#00D9FF"
                 stroke-width="2"
               />
 
             </g>
 
-            <!-- Peak target label -->
+            <!-- ========================================= -->
+            <!-- TARGET LABEL -->
+            <!-- ========================================= -->
 
             <rect
               x="{label_x - 10:.2f}"
-              y="{label_y - 20:.2f}"
-              width="205"
-              height="42"
+              y="{label_y - 18:.2f}"
+              width="200"
+              height="40"
               rx="8"
-              fill="#081321"
-              stroke="#1C3B5D"
+              fill="#071321"
+              stroke="#1C4264"
               stroke-width="1"
             />
 
             <text
               x="{label_x:.2f}"
-              y="{label_y - 4:.2f}"
+              y="{label_y - 2:.2f}"
               fill="#00D9FF"
               font-family="monospace"
               font-size="10"
               font-weight="700"
-              letter-spacing="0.8"
             >
-              PEAK TARGET / {target_count}
+              PEAK / {target_count} CONTRIBUTIONS
             </text>
 
             <text
               x="{label_x:.2f}"
-              y="{label_y + 12:.2f}"
-              fill="#7086A8"
+              y="{label_y + 13:.2f}"
+              fill="#7189A8"
               font-family="monospace"
               font-size="9"
             >
               {target_date}
             </text>
 
-            <!-- Statistics separator -->
+            <!-- ========================================= -->
+            <!-- STATISTICS -->
+            <!-- ========================================= -->
 
             <line
-              x1="48"
-              y1="294"
-              x2="952"
-              y2="294"
+              x1="52"
+              y1="265"
+              x2="1048"
+              y2="265"
               stroke="#1B3049"
               stroke-width="1"
             />
@@ -715,19 +661,19 @@ jobs:
             <!-- Total -->
 
             <text
-              x="48"
-              y="323"
-              fill="#637D9F"
+              x="52"
+              y="292"
+              fill="#5D7696"
               font-family="monospace"
-              font-size="10"
-              letter-spacing="0.8"
+              font-size="9"
+              letter-spacing="0.7"
             >
               TOTAL CONTRIBUTIONS
             </text>
 
             <text
-              x="48"
-              y="350"
+              x="52"
+              y="319"
               fill="#00D9FF"
               font-family="monospace"
               font-size="23"
@@ -739,19 +685,19 @@ jobs:
             <!-- Active -->
 
             <text
-              x="278"
-              y="323"
-              fill="#637D9F"
+              x="310"
+              y="292"
+              fill="#5D7696"
               font-family="monospace"
-              font-size="10"
-              letter-spacing="0.8"
+              font-size="9"
+              letter-spacing="0.7"
             >
               ACTIVE DAYS
             </text>
 
             <text
-              x="278"
-              y="350"
+              x="310"
+              y="319"
               fill="#00D9FF"
               font-family="monospace"
               font-size="23"
@@ -760,22 +706,22 @@ jobs:
               {active_days}
             </text>
 
-            <!-- Current streak -->
+            <!-- Current -->
 
             <text
-              x="508"
-              y="323"
-              fill="#637D9F"
+              x="565"
+              y="292"
+              fill="#5D7696"
               font-family="monospace"
-              font-size="10"
-              letter-spacing="0.8"
+              font-size="9"
+              letter-spacing="0.7"
             >
               CURRENT STREAK
             </text>
 
             <text
-              x="508"
-              y="350"
+              x="565"
+              y="319"
               fill="#7B2FF7"
               font-family="monospace"
               font-size="23"
@@ -784,22 +730,22 @@ jobs:
               {current_streak}
             </text>
 
-            <!-- Longest streak -->
+            <!-- Longest -->
 
             <text
-              x="738"
-              y="323"
-              fill="#637D9F"
+              x="820"
+              y="292"
+              fill="#5D7696"
               font-family="monospace"
-              font-size="10"
-              letter-spacing="0.8"
+              font-size="9"
+              letter-spacing="0.7"
             >
               LONGEST STREAK
             </text>
 
             <text
-              x="738"
-              y="350"
+              x="820"
+              y="319"
               fill="#7B2FF7"
               font-family="monospace"
               font-size="23"
@@ -808,24 +754,25 @@ jobs:
               {longest_streak}
             </text>
 
-            <!-- Footer -->
+            <!-- ========================================= -->
+            <!-- FOOTER -->
+            <!-- ========================================= -->
 
             <text
-              x="48"
-              y="386"
-              fill="#415A79"
+              x="52"
+              y="365"
+              fill="#3E5876"
               font-family="monospace"
               font-size="9"
-              letter-spacing="0.5"
             >
               REAL GITHUB CONTRIBUTION DATA • AUTO UPDATED
             </text>
 
             <text
-              x="952"
-              y="386"
+              x="1048"
+              y="365"
               text-anchor="end"
-              fill="#415A79"
+              fill="#3E5876"
               font-family="monospace"
               font-size="9"
             >
@@ -834,10 +781,6 @@ jobs:
 
           </svg>
           """
-
-          # -------------------------------------------------
-          # Save SVG
-          # -------------------------------------------------
 
           os.makedirs(
               os.path.dirname(OUTPUT),
@@ -851,26 +794,11 @@ jobs:
           ) as file:
               file.write(svg)
 
-          print(
-              "Digital Hunter generated successfully."
-          )
-
-          print(
-              f"Total contributions: {total}"
-          )
-
-          print(
-              f"Active days: {active_days}"
-          )
-
-          print(
-              f"Current streak: {current_streak}"
-          )
-
-          print(
-              f"Longest streak: {longest_streak}"
-          )
-
+          print("Digital Hunter generated successfully.")
+          print(f"Total contributions: {total}")
+          print(f"Active days: {active_days}")
+          print(f"Current streak: {current_streak}")
+          print(f"Longest streak: {longest_streak}")
           print(
               f"Peak target: {target_date} "
               f"({target_count})"
